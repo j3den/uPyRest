@@ -1,0 +1,21 @@
+{
+	"wifiSettings":{
+	"ssid":"PLUSNET-TZTN",
+	"password":"2ae657fb59"
+	},
+
+	"webServer":{
+	"port":80},
+
+	"models":[
+	{
+	"endpoint":"/user",
+	"fields":["id","username","password"]
+	},
+	{
+	"endpoint":"/message",
+	"fields":["id","message","datesent","userid"]
+	}
+]
+
+}

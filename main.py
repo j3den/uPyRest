@@ -1,8 +1,8 @@
 import machine
 import time
 import socket
-import Requests
-import NetworkManager as nman
+import requests
+import networkmanager as nman
 import SocketService as ss
 
 nman.connectToWlan()
