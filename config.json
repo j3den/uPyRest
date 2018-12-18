@@ -1,0 +1,21 @@
+{
+	"wifiSettings":{
+	"ssid":"MYSSID",
+	"password":"MYPASSWORD"
+	},
+
+	"webServer":{
+	"port":80},
+
+	"models":[
+	{
+	"endpoint":"/user",
+	"fields":["id","username","password"]
+	},
+	{
+	"endpoint":"/message",
+	"fields":["id","message","datesent","userid"]
+	}
+]
+
+}
