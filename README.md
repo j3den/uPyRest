@@ -1,7 +1,7 @@
 # uPyRest
 A web server for Micro Python -> ESP32
 
-##Introduction
+## Introduction
 
 This is a framework for the ESP32. It provides a confgiuration file based
 setup for a simple RESTful web service.
