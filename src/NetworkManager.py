@@ -4,11 +4,7 @@ import json
 isConnected = False 
 
 #Connect To WLAN
-def connectToWlan():
-	configFile = open("config.json","r")
-	config = json.loads(configFile.read())
-	print(config)
-	print(config["wifiSettings"])
+def connectToWlan(config):
 	wifiSettings = config["wifiSettings"]
 	SSID = wifiSettings["ssid"]
 	password = wifiSettings["password"]
