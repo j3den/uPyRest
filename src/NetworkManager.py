@@ -9,8 +9,8 @@ class WifiManager():
     def __init__(self, config):
         self.display = ds.DisplayBuilder().get_display()
         self.wifiSettings = config["wifiSettings"]
-        self.sta_if = network.WLAN(network.STA_IF)
-        self.sta_if.active(True)
+        self._sta_if = network.WLAN(network.STA_IF)
+        self._sta_if.active(True)
         self.isConnected = False
 
 
@@ -18,15 +18,18 @@ class WifiManager():
         print("Wifi Status Check Started")
         blip_bool = False
         while True:
-            self.display.fill(0)
-            if self.sta_if.isconnected:
+
+            for i in range(0,128):
+                for x in range(0,10):
+                    self.display.pixel(i,x,0)
+            if self._sta_if.isconnected:
                 print("Connected!")
                 self.isConnected = True
-
+                ip_addr = self._sta_if.ifconfig()[0]
                 if blip_bool:
-                    self.display.text("CONN", 0, 0)
+                    self.display.text(ip_addr, 0, 0)
                 else:
-                    self.display.text("CONN..", 0, 0)
+                    self.display.text(ip_addr, 0, 0)
                 self.display.show()
 
                 time.sleep(1)
@@ -39,7 +42,7 @@ class WifiManager():
                 else:
                     self.display.text("CERR#.", 0, 0)
                 self.display.show()
-                self.sta_if.connect()
+                self._sta_if.connect()
                 time.sleep(1)
 
             blip_bool = not blip_bool
@@ -49,9 +52,9 @@ class WifiManager():
         SSID = self.wifiSettings["ssid"]
         password = self.wifiSettings["password"]
 
-        self.sta_if.connect(SSID, password)
+        self._sta_if.connect(SSID, password)
         x = 1
-        while not self.sta_if.isconnected():
+        while not self._sta_if.isconnected():
             elipses = ""
             for i in range(0, x % 3):
                 elipses = elipses + "."

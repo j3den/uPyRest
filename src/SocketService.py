@@ -7,10 +7,18 @@
 import socket
 import repos.POST as postrepo
 import display.DisplayService as ds
+import display.DisplayServiceSingleton as disp
 
 display = ds.DisplayBuilder().get_display()
 def init():
 	print("Setting up WebSocket -> Binding Socket to 80...")
+	o1 = disp.DisplaySingleService()
+	o2 = disp.DisplaySingleService()
+	o3 =disp.DisplaySingleService()
+
+	print(o1)
+	print(o2)
+	print(o3)
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	s.bind(('', 80))
@@ -32,9 +40,9 @@ def init():
 				conn.close()
 				print(logString)
 
-				display.fill(0)
-				display.text(str(addr),0,0)
-				display.text("POST REQ",0,10)
+
+				display.text(str(addr),0,10)
+				display.text("POST REQ",0,20)
 				display.show()
 		
 			if("GET" in parts[0]):
@@ -44,9 +52,9 @@ def init():
 				conn.close()
 				print(logString)
 
-				display.fill(0)
-				display.text(str(addr),0,0)
-				display.text("GET REQ",0,10)
+
+				display.text(str(addr),0,10)
+				display.text("GET REQ",0,20)
 				display.show()
 		except:	
 			conn.send("HTTP/1.1 400 Bad Request\n"+"Content-Type: text/html\n"

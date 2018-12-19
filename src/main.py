@@ -2,6 +2,15 @@ import NetworkManager as nman
 import SocketService as ss
 import json
 import _thread
+import display.DisplayServiceSingleton as disp
+
+o1 = disp.DisplaySingleService()
+o2 = disp.DisplaySingleService()
+o3 = disp.DisplaySingleService()
+
+print(o1)
+print(o2)
+print(o3)
 
 # Load up and Print Config File out.
 config = open("/config.json", "r")
