@@ -3,14 +3,15 @@ import SocketService as ss
 import json
 import _thread
 import display.DisplayServiceSingleton as disp
+import time
 
-o1 = disp.DisplaySingleService()
-o2 = disp.DisplaySingleService()
-o3 = disp.DisplaySingleService()
 
-print(o1)
-print(o2)
-print(o3)
+displayService = disp.DisplaySingleService()
+
+displayService.print_text("   Hello!   ",0)
+displayService.print_text("Jonno's uPyRest",1)
+displayService.print_text("Starting Up..",2)
+time.sleep(3)
 
 # Load up and Print Config File out.
 config = open("/config.json", "r")
