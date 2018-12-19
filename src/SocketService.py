@@ -6,8 +6,12 @@
 # the body ends with a '
 import socket
 import repos.POST as postrepo
+import display.DisplayService as ds
+
+display = ds.DisplayBuilder().get_display()
 def init():
 	print("Setting up WebSocket -> Binding Socket to 80...")
+
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	s.bind(('', 80))
 	s.listen(5)
@@ -27,6 +31,11 @@ def init():
          			+"\n"+response) # Important!
 				conn.close()
 				print(logString)
+
+				display.fill(0)
+				display.text(str(addr),0,0)
+				display.text("POST REQ",0,10)
+				display.show()
 		
 			if("GET" in parts[0]):
 				logString=logString+str(addr)+" GET "
@@ -34,6 +43,11 @@ def init():
          			+"\n"+"OK GET") # Important!
 				conn.close()
 				print(logString)
+
+				display.fill(0)
+				display.text(str(addr),0,0)
+				display.text("GET REQ",0,10)
+				display.show()
 		except:	
 			conn.send("HTTP/1.1 400 Bad Request\n"+"Content-Type: text/html\n"
          		+"\n"+"ERROR") # Important!
