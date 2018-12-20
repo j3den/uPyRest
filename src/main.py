@@ -4,6 +4,8 @@ import json
 import _thread
 import display.DisplayServiceSingleton as disp
 import time
+import os
+import gc
 
 # Load up and Print Config File out.
 config = open("/config.json", "r")
@@ -11,6 +13,26 @@ configDict = json.loads(config.read())
 for key in configDict.keys():
     print(key + " -> " + str(configDict[key]))
     print("")
+
+# Create Database Folder if does not exist:
+print("Directory List:")
+dirs = os.listdir("/")
+hasDatabaseDir = False
+for dir in range(0, len(dirs)):
+    print(dirs[dir])
+    if dirs[dir] == "database":
+        hasDatabaseDir = True
+if not hasDatabaseDir:
+    print("Forming Database folder...")
+    os.mkdir("/database")
+else:
+    print("Contains Database Folder.")
+
+# List Database Files:
+print("\n\nData Files Found:")
+dirs = os.listdir("/database")
+for i in range(0,len(dirs)):
+    print(dirs[i])
 
 # Init the Display Service
 displayService = disp.DisplaySingleService()
@@ -25,6 +47,12 @@ wifiman = nman.WifiManager(configDict)
 wifiman.connectToWlan()
 while not wifiman.get_connected:
     print("Connecting...")
+
+# Clean up...
+print("Cleaning Up RAM")
+gc.collect()
+print("Free RAM:" + str(gc.mem_free()) + " bytes")
+gc.enable()
 
 
 # Start the WebSocket Service.

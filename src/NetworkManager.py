@@ -6,6 +6,8 @@ import display.DisplayServiceSingleton as disp
 
 class WifiManager():
 
+    _print_text = disp.DisplaySingleService().print_text
+
     def __init__(self, config):
         self.displayService = disp.DisplaySingleService()
         self.wifiSettings = config["wifiSettings"]
@@ -17,7 +19,7 @@ class WifiManager():
         print("Wifi Status Check Started")
         while True:
             #Pre-load print_text method
-            print_text = self.displayService.print_text
+
             if self.wlan_intf.isconnected:
                 self.isConnected = True
                 ip_addr = self.wlan_intf.ifconfig()[0]
@@ -25,24 +27,24 @@ class WifiManager():
                     ip_addr = " "+ip_addr+" "
 
                 self.displayService.clear()
-                print_text("!!!!!!!!!!!!!!!!", 0)
-                print_text("!   CONNECTED  !", 1)
-                print_text("!              !", 2)
-                print_text(     ip_addr      , 3)
-                print_text("!              !", 4)
-                print_text("!!!!!!!!!!!!!!!!", 5)
+                self._print_text("!!!!!!!!!!!!!!!!", 0)
+                self._print_text("!   CONNECTED  !", 1)
+                self._print_text("!              !", 2)
+                self._print_text(     ip_addr      , 3)
+                self._print_text("!              !", 4)
+                self._print_text("!!!!!!!!!!!!!!!!", 5)
                 time.sleep(15)
 
 
             else:
                 self.isConnected = False
                 self.displayService.clear()
-                print_text("!!!!!!!!!!!!!!!!", 0)
-                print_text("!    ERROR!    !", 1)
-                print_text("!              !", 2)
-                print_text("!     Lost     !", 3)
-                print_text("!  Connection  !", 4)
-                print_text("!!!!!!!!!!!!!!!!", 5)
+                self._print_text("!!!!!!!!!!!!!!!!", 0)
+                self._print_text("!    ERROR!    !", 1)
+                self._print_text("!              !", 2)
+                self._print_text("!     Lost     !", 3)
+                self._print_text("!  Connection  !", 4)
+                self._print_text("!!!!!!!!!!!!!!!!", 5)
                 self.wlan_intf.connect()
                 time.sleep(5)
 
@@ -65,8 +67,6 @@ class WifiManager():
                 self.displayService.clear()
                 self.displayService.print_text("Connecting" + elipses, 4)
                 self.displayService.print_text("To "+SSID, 5)
-
-            print(self.wlan_intf.status())
             x = x + 1
             time.sleep(0.5)
         self.isConnected = True
