@@ -6,6 +6,7 @@ import json
 class DisplaySingleService():
     _instance = None
     lines = [""]*6
+    displayEnabled = False
 
     def __new__(self):
         print(self._instance)
@@ -16,6 +17,7 @@ class DisplaySingleService():
             configDict = json.loads(config.read())
             displayDict = configDict["Display"]
             if displayDict.get("ssd1306") is True:
+                self.displayEnabled = True
                 print("SSD1306 Display init: scl = " + str(displayDict.get("scl_pin"))
                       + " sda = " + str(displayDict.get("sda_pin"))
                       + " oled_rst = " + str(displayDict.get("oled_rst_pin"))
@@ -36,14 +38,16 @@ class DisplaySingleService():
         return self._instance
 
     def print_text(self,text,line):
-        self.lines[line]=text
-        x=0
-        self.oled.fill(0)
-        for i in range (0,len(self.lines)):
-           self.oled.text(self.lines[i],0,x)
-           x=x+10
-        self.oled.show()
+        if self.displayEnabled:
+            self.lines[line]=text
+            x=0
+            self.oled.fill(0)
+            for i in range (0,len(self.lines)):
+               self.oled.text(self.lines[i],0,x)
+               x=x+10
+            self.oled.show()
 
     def clear(self):
-        self.lines = [""]*6
+        if self.displayEnabled:
+            self.lines = [""]*6
 
