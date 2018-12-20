@@ -1,6 +1,7 @@
 import json
 import os
 
+
 config = open("/config.json","r")
 configDict = json.loads(config.read())
 def postToFile(model,jsonDict):
@@ -13,6 +14,6 @@ def postToFile(model,jsonDict):
 	print("")
 	#The CSV File that contains the models should have fields in order set in the config models.
 
-	return returnString
+	#return returnString
 
 	

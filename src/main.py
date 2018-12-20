@@ -5,7 +5,6 @@ import _thread
 import display.DisplayServiceSingleton as disp
 import time
 
-
 # Load up and Print Config File out.
 config = open("/config.json", "r")
 configDict = json.loads(config.read())
@@ -13,7 +12,7 @@ for key in configDict.keys():
     print(key + " -> " + str(configDict[key]))
     print("")
 
- # Init the Display Service
+# Init the Display Service
 displayService = disp.DisplaySingleService()
 displayService.print_text("   Hello!   ", 0)
 displayService.print_text("Jonno's uPyRest", 1)
@@ -33,4 +32,7 @@ def ssThread():
     ss.init()
 
 
-_thread.start_new_thread(ssThread, ())
+try:
+    _thread.start_new_thread(ssThread, ())
+except Exception as e:
+    print(e)

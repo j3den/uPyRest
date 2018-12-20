@@ -16,33 +16,33 @@ class WifiManager():
     def statusCheck(self):
         print("Wifi Status Check Started")
         while True:
+            #Pre-load print_text method
+            print_text = self.displayService.print_text
             if self.wlan_intf.isconnected:
-                print(self.wlan_intf.isconnected())
-                print("Connected!")
                 self.isConnected = True
                 ip_addr = self.wlan_intf.ifconfig()[0]
                 while len(ip_addr)<15:
                     ip_addr = " "+ip_addr+" "
 
                 self.displayService.clear()
-                self.displayService.print_text("!!!!!!!!!!!!!!!!", 0)
-                self.displayService.print_text("!   CONNECTED  !", 1)
-                self.displayService.print_text("!              !", 2)
-                self.displayService.print_text(     ip_addr      , 3)
-                self.displayService.print_text("!              !", 4)
-                self.displayService.print_text("!!!!!!!!!!!!!!!!", 5)
+                print_text("!!!!!!!!!!!!!!!!", 0)
+                print_text("!   CONNECTED  !", 1)
+                print_text("!              !", 2)
+                print_text(     ip_addr      , 3)
+                print_text("!              !", 4)
+                print_text("!!!!!!!!!!!!!!!!", 5)
                 time.sleep(15)
 
 
             else:
                 self.isConnected = False
                 self.displayService.clear()
-                self.displayService.print_text("!!!!!!!!!!!!!!!!", 0)
-                self.displayService.print_text("!    ERROR!    !", 1)
-                self.displayService.print_text("!              !", 2)
-                self.displayService.print_text("!     Lost     !", 3)
-                self.displayService.print_text("!  Connection  !", 4)
-                self.displayService.print_text("!!!!!!!!!!!!!!!!", 5)
+                print_text("!!!!!!!!!!!!!!!!", 0)
+                print_text("!    ERROR!    !", 1)
+                print_text("!              !", 2)
+                print_text("!     Lost     !", 3)
+                print_text("!  Connection  !", 4)
+                print_text("!!!!!!!!!!!!!!!!", 5)
                 self.wlan_intf.connect()
                 time.sleep(5)
 
