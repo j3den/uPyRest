@@ -30,7 +30,6 @@ class GETDaoService():
 
         if self._fileDataSource:
             dataFile = open("/database/" + model, "r+")
-            print(dataFile)
             data = dataFile.read()
             dataFile.close()
 

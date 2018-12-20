@@ -48,7 +48,7 @@ def init():
                 print_text("!     POST     !", 1)
                 logString = logString + str(addr) + " POST "
                 try:
-                    print(str(postRepo.persist(request)))
+                    postRepo.persist(request)
                     conn.send("HTTP/1.1 201 Created\n" + "Content-Type: text/html\n"
                               + "\n\n" + "201 CREATED")  # Important!
                 except Exception as e:

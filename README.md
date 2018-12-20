@@ -1,5 +1,5 @@
 # uPyRest
-A web server for Micro Python -> ESP32
+An 'uRestful' server for Micro Python -> ESP32
 
 ![headerimage](header.png)
 
