@@ -7,6 +7,7 @@
 import socket
 import repos.POST as postRepoService
 import repos.GETRepo as getRepoService
+import repos.DELETERepo as deleteRepoService
 import display.DisplayServiceSingleton as ds
 
 
@@ -21,6 +22,7 @@ def init():
     print("Socket on port 80 bound")
     postRepo = postRepoService.PostRepo()
     getRepo = getRepoService.GetRepo()
+    deleteRepo = deleteRepoService.DeleteRepo()
 
     while True:
         conn, addr = s.accept()
@@ -54,17 +56,19 @@ def init():
                     conn.send("HTTP/1.1 500 Internal Server error\n" + "Content-Type: text/html\n"
                               + "\n\n" + "500 Internal Server error")  # Important!
 
+                conn.close()
+
             if "GET" in parts[0]:
                 print_text("!      GET     !", 1)
-
-                getRepo.getAll(request)
-
+                getRepo.getAll(request, conn)
                 logString = logString + str(addr) + " GET "
-                conn.send("HTTP/1.1 200 OK\n" + "Content-Type: text/html\n"
-                          + "\n" + "OK GET")  # Important!
-                conn.close()
                 print(logString)
 
-            conn.close()
+            if "DELETE" in parts[0]:
+                print_text("!    DELETE   !", 1)
+                deleteRepo.deleteAll(request, conn)
+                logString = logString + str(addr) + " DELETE "
+                print(logString)
+
         except Exception as e:
             print(str(e))

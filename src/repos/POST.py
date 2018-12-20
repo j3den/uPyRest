@@ -1,6 +1,7 @@
 import daos.POSTDao as postDao
 import display.DisplayServiceSingleton as ds
 import json
+import uos
 
 #Make singleton...
 
@@ -40,7 +41,7 @@ class PostRepo():
 
 				#Post the model via DAO.
 				self._postDao.post(model, body)
-
+				print(model + " file is now " + str(uos.stat("/database/" + model)[6]) + " bytes")
 		return True
 
 

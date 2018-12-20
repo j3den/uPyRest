@@ -1,8 +1,8 @@
 import json
-
+import os
 
 # Should be a singleton...
-class GETDaoService():
+class DELETEDao:
     _instance = None
     _SDDataSource = False
     _fileDataSource = False
@@ -10,7 +10,7 @@ class GETDaoService():
     def __new__(self):
         if not self._instance:
             print("POSTDao : Forming Instance")
-            self._instance = super(GETDaoService, self).__new__(self)
+            self._instance = super(DELETEDao, self).__new__(self)
         config = open("/config.json", "r")
         configDict = json.loads(config.read())
         databaseConfig = configDict["Database"]
@@ -25,17 +25,11 @@ class GETDaoService():
         print(self._instance)
         return self._instance
 
-    def getAll(self, model):
-        print("GET DAO: getAll: " + model)
+    def deleteAll(self, model):
+
+        print("DELETE : deleteAll:" + model)
 
         if self._fileDataSource:
-            dataFile = open("/database/" + model, "r+")
-            print(dataFile)
-            data = dataFile.read()
-            dataFile.close()
+            os.remove("/database/"+model)
 
-        return data
-
-# The CSV File that contains the models should have fields in order set in the config models.
-
-# return returnString
+        return True
